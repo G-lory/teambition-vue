@@ -24,5 +24,7 @@ module.exports = {
     // pluginOptions: {
     //     mock: { entry:'./mock.js', debug: false }
     // },
-    lintOnSave: false
+    lintOnSave: false,
+    // 部署到github
+    publicPath: process.env.NODE_ENV === 'production' ? '/teambition-vue' : '/'
 };
