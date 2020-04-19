@@ -4,7 +4,7 @@
         <div class="my-task">
             <div v-for="(item, index) in taskList" :key="index" class="task-item">
                 <i class="iconfont icon-wancheng2"></i>
-                <span class="content">{{ item.content }}</span>
+                <span class="content" @click="showTaskView(item)">{{ item.content }}</span>
                 <span class="time">{{ formatTime(item.accessTime) }}查看过</span>
             </div>
             <div class="task-more"
@@ -20,15 +20,21 @@
                 <span class="tip">收起</span>
             </div>
         </div>
+
+        <task-view :task-obj="taskObj" :visible.sync="taskVisible"></task-view>
     </div>
 </template>
 
 <script>
     import moment from 'moment';
     import 'moment/locale/zh-cn';
+    import TaskView from '@/components/TaskView';
 
     export default {
         name: 'OrganizationHome',
+        components: {
+            'task-view': TaskView
+        },
         data() {
             return {
                 myTaskList: [{"content":"分享笔记的显示不完整","accessTime":"2020-04-12T12:39:55.576Z"},
@@ -42,7 +48,9 @@
                     {"content":"橙色：较紧急的任务","accessTime":"2020-04-11T15:05:51.022Z"},
                     {"content":"急急急","accessTime":"2020-04-11T15:02:29.251Z"},
                     {"content":"m","accessTime":"2020-04-11T14:59:36.005Z"}],
-                showMore: false
+                showMore: false,
+                taskObj: {},
+                taskVisible: false
             }
         },
         computed: {
@@ -53,11 +61,14 @@
         methods: {
             formatTime(v) {
                 moment().locale('zh-cn');
-                console.log(moment().diff(v, 'h'))
                 if (moment().diff(v, 'h') < 3) {
                     return moment(v).fromNow();
                 }
                 return moment(v).calendar();
+            },
+            showTaskView(item) {
+                this.taskObj = item;
+                this.taskVisible = true;
             }
         }
     }
@@ -77,6 +88,7 @@
             .task-item {
                 display: flex;
                 line-height: 52px;
+                cursor: pointer;
                 border-bottom: 1px solid #f0f0f0;
                 .iconfont {
                     font-size: 18px;
