@@ -1,19 +1,32 @@
 <template>
     <div class="organization">
         <sidebar></sidebar>
-        <home></home>
+        <component :is="rightComponent" class="right-component"></component>
     </div>
 </template>
 
 <script>
     import Sidebar from '@/views/organization/Sidebar';
     import Home from '@/views/organization/Home';
+    import MyExecution from '@/views/organization/MyExecution';
+
 
     export default {
         name: 'Organization',
         components: {
             sidebar: Sidebar,
-            home: Home
+            home: Home,
+            'my-execution': MyExecution
+        },
+        computed: {
+            selectedType() {
+                return this.$store.state.organization.selectedType;
+            },
+            rightComponent() {
+                if (this.selectedType === 'home') return Home;
+                if (this.selectedType === 'execute') return MyExecution;
+                return null;
+            }
         }
     }
 </script>
@@ -22,5 +35,8 @@
     .organization {
         display: flex;
         padding: 0 80px;
+        .right-component {
+            flex-grow: 1;
+        }
     }
 </style>
