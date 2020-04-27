@@ -1,7 +1,7 @@
 <template>
-    <div class="my-execution">
+    <div class="my-participate">
         <div class="title">
-            <span class="text">我执行的</span>
+            <span class="text">我参与的</span>
             <div class="filter">
                 <el-select v-model="queryObj.taskStatus" size="small">
                     <el-option value="所有任务"></el-option>
@@ -16,18 +16,8 @@
                     <el-option value="按最高优先级"></el-option>
                 </el-select>
             </div>
+            <el-button type="text">创建</el-button>
         </div>
-
-        <el-input :placeholder="placeholder"
-                  v-model="taskContent"
-                  class="task-input"
-                  prefix-icon="el-icon-plus"
-                  @focus="placeholder = '添加任务，回车快速创建'"
-                  @blur="placeholder = '添加任务'">
-            <div slot="append">
-                <el-button :disabled="!taskContent">完成</el-button>
-            </div>
-        </el-input>
 
         <div class="task-list">
             <header>以后或未安排 · {{taskList.length}}</header>
@@ -50,7 +40,7 @@
 
 <script>
     export default {
-        name: 'MyExecution',
+        name: 'MyParticipate',
         data() {
             return {
                 queryObj: {
@@ -162,7 +152,7 @@
 </script>
 
 <style scoped lang="scss">
-    .my-execution {
+    .my-participate {
         padding-top: 40px;
         .title {
             font-size: 16px;
@@ -173,9 +163,6 @@
             .text {
                 flex-grow: 1;
             }
-        }
-        .task-input {
-            margin-bottom: 15px;
         }
         .task-list {
             header {

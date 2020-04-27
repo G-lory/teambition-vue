@@ -9,7 +9,8 @@
     import Sidebar from '@/views/organization/Sidebar';
     import Home from '@/views/organization/Home';
     import MyExecution from '@/views/organization/MyExecution';
-
+    import MyParticipate from '@/views/organization/MyParticipate';
+    import MyCreated from '@/views/organization/MyCreated';
 
     export default {
         name: 'Organization',
@@ -25,6 +26,8 @@
             rightComponent() {
                 if (this.selectedType === 'home') return Home;
                 if (this.selectedType === 'execute') return MyExecution;
+                if (this.selectedType === 'participate') return MyParticipate;
+                if (this.selectedType === 'create') return MyCreated;
                 return null;
             }
         }
