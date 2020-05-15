@@ -18,13 +18,10 @@
                         <i class="el-icon-plus"></i>
                     </div>
                 </div>
-                <div class="sidebar-item">
+                <div class="sidebar-item" v-for="item in projects" :key="item"
+                     @click="gotoProject(item)">
                     <i class="iconfont icon-yichuangjian1"></i>
-                    <span class="text">作业</span>
-                </div>
-                <div class="sidebar-item">
-                    <i class="iconfont icon-yichuangjian1"></i>
-                    <span class="text">project1</span>
+                    <span class="text">{{ item }}</span>
                 </div>
                 <div :class="['sidebar-item', {active: selectedType === 'all'}]"
                      @click="handleSelect('all')">
@@ -62,6 +59,9 @@
                         name: '我创建的',
                         value: 'create'
                     },
+                ],
+                projects: [
+                    '作业', '新手引导'
                 ]
             }
         },
@@ -73,6 +73,14 @@
         methods: {
             handleSelect(type) {
                 this.$store.commit('organization/setSelectedType', type);
+            },
+            gotoProject(project) {
+                this.$router.push({
+                    name: 'project',
+                    query: {
+                        project: project
+                    }
+                });
             }
         }
     }
